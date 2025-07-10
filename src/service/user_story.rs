@@ -9,7 +9,7 @@ use crate::{
         self, spreadsheet::{SpecificDataRange, SpecificPatch}, user_story::{InsertUserStoryBox, Scenario, ScenarioType, UserStory, UserStoryBox}
     }, util::{
         cons::{PROJECTS_SHEET_NAME, SPREADSHEET_ID},
-        util::{convert_pattern_to_string, convert_pattern_to_vec, extract_num, Identificator},
+        util::{convert_pattern_to_string, convert_pattern_to_vec, extract_num, DoubleIdentificator},
     }
 };
 
@@ -20,7 +20,7 @@ pub struct UserStoryService;
 #[async_trait]
 impl CRUD for UserStoryService {
     type CreatePayload = InsertUserStoryBox;
-    type ReadPayload = Identificator;
+    type ReadPayload = DoubleIdentificator;
     type UpdatePayload = SpecificPatch;
     type DeletePayload = SpecificDataRange;
 
@@ -130,7 +130,7 @@ impl CRUD for UserStoryService {
             .await
             .expect("Could not establish the connection to the spreadsheet");
 
-        let Identificator { id } = param.unwrap().into_inner();
+        let DoubleIdentificator { project_id, epic_id } = param.unwrap().into_inner();
 
         let full_range = format!("{}!R:AD", &PROJECTS_SHEET_NAME.to_string());
 
@@ -146,10 +146,8 @@ impl CRUD for UserStoryService {
                 let rows: Vec<UserStoryBox> = values
                     .into_iter()
                     .enumerate()
-                    .filter(|(_, row)| row[1].to_string().replace("\"", "") == id.replace("\"", ""))
+                    .filter(|(_, row)| row[1].to_string().replace("\"", "") == project_id.replace("\"", "") && row[2].to_string().replace("\"", "") == epic_id.replace("\"",""))
                     .filter_map(|(index, row)| {
-                        
-
                         let scenarios_value_range = ValueRange {
                            range: None,
                            major_dimension: None,

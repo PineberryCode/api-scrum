@@ -24,6 +24,13 @@ pub struct Identificator {
     pub id: String
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct DoubleIdentificator {
+    pub project_id: String,
+    pub epic_id: String
+}
+
 impl FromStr for Status {
    type Err = ();
 

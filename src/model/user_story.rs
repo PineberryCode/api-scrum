@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub enum ScenarioType {
     Success,
-    NonSuccess 
+    Failure
 }
 
 /// Scenario attributes:
@@ -80,7 +80,7 @@ impl FromStr for ScenarioType {
    fn from_str(input: &str) -> Result<Self, Self::Err> {
         match input {
             "Success" => Ok(ScenarioType::Success),
-            "NonSuccess" => Ok(ScenarioType::NonSuccess),
+            "Failure" => Ok(ScenarioType::Failure),
             _ => Err(())
         }
    }
