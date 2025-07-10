@@ -15,7 +15,7 @@ use crate::{
     service::spreadsheet::create_id,
     util::{
         cons::{PROJECTS_SHEET_NAME, SPREADSHEET_ID},
-        util::{Identificator, Status, extract_num},
+        util::{extract_num, Identificator, Status},
     },
 };
 
@@ -133,8 +133,8 @@ impl CRUD for SprintService {
 
                 let rows: Vec<Sprint> = values
                     .into_iter()
-                    .filter(|row| row[1].to_string().replace("\"", "") == id.replace("\"", ""))
                     .enumerate()
+                    .filter(|(_, row)| row[1].to_string().replace("\"", "") == id.replace("\"", ""))
                     .filter_map(|(index, row)| {
                         Some(Sprint {
                             id: row[0].as_str()?.to_string(),
