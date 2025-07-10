@@ -21,7 +21,7 @@ pub struct ProductBacklogItem {
     pub id: String,
     pub project_id: String,
     pub epic_id: String,
-    pub title: String,
+    pub title: String, // Name of the user story or task
     pub priority: String,
     pub description: Option<String>,
     pub points: Option<i64>,

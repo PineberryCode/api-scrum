@@ -10,6 +10,7 @@ use crate::util::util::Status;
 /// - `epic_id`: _
 /// - `denomination`: The name or title of the sprint.
 /// - `description`: _
+/// - `backlog_items`: Only stores the ids.
 /// - `goal`: The target of the sprint.
 /// - `owner`: Who is the leader.
 /// - `estimated_points`: The total of points (story points or points in general like a *task*).
@@ -27,6 +28,7 @@ pub struct Sprint {
     pub epic_id: String,
     pub denomination: String,
     pub description: Option<String>,
+    //pub backlog_items: Vec<String>,
     pub goal: String,
     pub owner: String,
     pub estimated_points: i64,
